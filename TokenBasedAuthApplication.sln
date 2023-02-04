@@ -2,6 +2,20 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TokenBasedAuthApplication.API", "TokenBasedAuthApplication.API\TokenBasedAuthApplication.API.csproj", "{DD56BEE2-9CAA-405F-A4B2-39B6E41187A2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TokenBasedAuthApplication.Core", "TokenBasedAuthApplication.Core\TokenBasedAuthApplication.Core.csproj", "{89C3215B-C3F8-4F29-A9ED-E14C10FF6C76}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TokenBasedAuthApplication.DataAccess", "TokenBasedAuthApplication.DataAccess\TokenBasedAuthApplication.DataAccess.csproj", "{DAD5BBB8-D60A-4CA5-A49F-4F9CFE3F5D94}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TokenBasedAuthApplication.Business", "TokenBasedAuthApplication.Business\TokenBasedAuthApplication.Business.csproj", "{9FB8095E-F94E-4EC0-AD44-315102F15F81}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "APIs", "APIs", "{A23DDF19-099E-4F89-B6F7-534AD1DCEEB0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniAPI.FirstApp", "APIs\MiniAPI.FirstApp\MiniAPI.FirstApp.csproj", "{0592A601-1A19-47FA-8C25-753B7A7C879A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniAPI.SecondApp", "APIs\MiniAPI.SecondApp\MiniAPI.SecondApp.csproj", "{249E18E0-46E3-4F5A-BC10-83DF8AB62530}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniAPI.ThirthApp", "APIs\MiniAPI.ThirthApp\MiniAPI.ThirthApp.csproj", "{24883018-DE2A-4397-8793-AB9880770490}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +26,29 @@ Global
 		{DD56BEE2-9CAA-405F-A4B2-39B6E41187A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DD56BEE2-9CAA-405F-A4B2-39B6E41187A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DD56BEE2-9CAA-405F-A4B2-39B6E41187A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{89C3215B-C3F8-4F29-A9ED-E14C10FF6C76}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89C3215B-C3F8-4F29-A9ED-E14C10FF6C76}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89C3215B-C3F8-4F29-A9ED-E14C10FF6C76}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89C3215B-C3F8-4F29-A9ED-E14C10FF6C76}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DAD5BBB8-D60A-4CA5-A49F-4F9CFE3F5D94}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DAD5BBB8-D60A-4CA5-A49F-4F9CFE3F5D94}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DAD5BBB8-D60A-4CA5-A49F-4F9CFE3F5D94}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DAD5BBB8-D60A-4CA5-A49F-4F9CFE3F5D94}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9FB8095E-F94E-4EC0-AD44-315102F15F81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9FB8095E-F94E-4EC0-AD44-315102F15F81}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9FB8095E-F94E-4EC0-AD44-315102F15F81}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9FB8095E-F94E-4EC0-AD44-315102F15F81}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0592A601-1A19-47FA-8C25-753B7A7C879A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0592A601-1A19-47FA-8C25-753B7A7C879A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0592A601-1A19-47FA-8C25-753B7A7C879A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0592A601-1A19-47FA-8C25-753B7A7C879A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{249E18E0-46E3-4F5A-BC10-83DF8AB62530}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{249E18E0-46E3-4F5A-BC10-83DF8AB62530}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{249E18E0-46E3-4F5A-BC10-83DF8AB62530}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{249E18E0-46E3-4F5A-BC10-83DF8AB62530}.Release|Any CPU.Build.0 = Release|Any CPU
+		{24883018-DE2A-4397-8793-AB9880770490}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24883018-DE2A-4397-8793-AB9880770490}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24883018-DE2A-4397-8793-AB9880770490}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24883018-DE2A-4397-8793-AB9880770490}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
