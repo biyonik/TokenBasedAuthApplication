@@ -7,7 +7,7 @@ public interface IGenericRepository<T> where T: class, new()
     Task<T?> GetByIdAsync(Guid Id, CancellationToken cancellationToken);
     Task<IQueryable<T>> GetAsync(Expression<Func<T, bool>> expression, CancellationToken cancellationToken);
     Task<IReadOnlyList<T>> GetAllAsync(CancellationToken cancellationToken, Expression<Func<T, bool>>? expression = null);
-    Task<bool> AddAsync(T entity, CancellationToken cancellationToken);
+    Task AddAsync(T entity, CancellationToken cancellationToken);
     Task<T?> UpdateAsync(T entity, CancellationToken cancellationToken);
-    Task<bool> DeleteAsync(T entity, CancellationToken cancellationToken);
+    Task DeleteAsync(T entity, CancellationToken cancellationToken);
 }
