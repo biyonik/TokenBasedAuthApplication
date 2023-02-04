@@ -15,4 +15,9 @@
       <Folder Include="Controllers" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\TokenBasedAuthApplication.Business\TokenBasedAuthApplication.Business.csproj" />
+      <ProjectReference Include="..\TokenBasedAuthApplication.SharedLibrary\TokenBasedAuthApplication.SharedLibrary.csproj" />
+    </ItemGroup>
+
 </Project>

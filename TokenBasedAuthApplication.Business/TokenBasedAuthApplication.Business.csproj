@@ -6,4 +6,8 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\TokenBasedAuthApplication.DataAccess\TokenBasedAuthApplication.DataAccess.csproj" />
+    </ItemGroup>
+
 </Project>
