@@ -3,7 +3,7 @@ using TokenBasedAuthApplication.SharedLibrary.DTOs;
 
 namespace TokenBasedAuthApplication.SharedLibrary;
 
-public record Response<T> where T : class
+public record Response<T>
 {
     private T? Data { get; init; }
     private int StatusCode { get; init; }

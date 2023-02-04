@@ -10,4 +10,8 @@
       <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.2" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\TokenBasedAuthApplication.SharedLibrary\TokenBasedAuthApplication.SharedLibrary.csproj" />
+    </ItemGroup>
+
 </Project>
