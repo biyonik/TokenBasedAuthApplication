@@ -16,6 +16,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniAPI.SecondApp", "APIs\M
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniAPI.ThirthApp", "APIs\MiniAPI.ThirthApp\MiniAPI.ThirthApp.csproj", "{24883018-DE2A-4397-8793-AB9880770490}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TokenBasedAuthApplication.SharedLibrary", "TokenBasedAuthApplication.SharedLibrary\TokenBasedAuthApplication.SharedLibrary.csproj", "{E6E8218D-D88B-4EE8-ADD3-1386EB97DF86}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -50,5 +52,9 @@ Global
 		{24883018-DE2A-4397-8793-AB9880770490}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{24883018-DE2A-4397-8793-AB9880770490}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{24883018-DE2A-4397-8793-AB9880770490}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6E8218D-D88B-4EE8-ADD3-1386EB97DF86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6E8218D-D88B-4EE8-ADD3-1386EB97DF86}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6E8218D-D88B-4EE8-ADD3-1386EB97DF86}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6E8218D-D88B-4EE8-ADD3-1386EB97DF86}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
