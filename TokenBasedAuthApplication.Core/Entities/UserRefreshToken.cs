@@ -16,8 +16,8 @@ public sealed class UserRefreshToken
     }
 
     public Guid UserId { get; init; }
-    public string Code { get; init; }
-    public DateTime Expiration { get; init; }
+    public string Code { get; set; }
+    public DateTime Expiration { get; set; }
 
     public void Deconstruct(out Guid UserId, out string Code, out DateTime Expiration)
     {
