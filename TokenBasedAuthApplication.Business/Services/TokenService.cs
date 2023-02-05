@@ -97,7 +97,6 @@ public class TokenService : ITokenService
         );
         return jwtSecurityToken;
     }
-
     public ClientTokenDto CreateTokenForClient(Client client)
     {
         DateTime accessTokenExpiration = DateTime.Now.AddMinutes(_customTokenOptions.AccessTokenExpiration);
