@@ -25,4 +25,18 @@ public class AuthController: BaseApiController
         var response = await _authenticationService.CreateTokenForClientAsync(loginForClientDto);
         return await HandleResponse(response);
     }
+
+    [HttpPost("revoke-refresh-token")]
+    public async Task<IActionResult> RevokeRefreshToken(RefreshTokenDto refreshTokenDto)
+    {
+        var response = await _authenticationService.RevokeRefreshToken(refreshTokenDto.Token);
+        return await HandleResponse(response);
+    }
+
+    [HttpPost("create-token-by-refresh-token")]
+    public async Task<IActionResult> CreateTokenByRefreshToken(RefreshTokenDto refreshTokenDto)
+    {
+        var response = await _authenticationService.CreateTokenByRefreshToken(refreshTokenDto.Token);
+        return await HandleResponse(response);
+    }
 }
