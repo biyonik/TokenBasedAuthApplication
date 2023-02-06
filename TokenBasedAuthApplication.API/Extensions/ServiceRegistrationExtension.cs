@@ -1,10 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity;
-using TokenBasedAuthApplication.Business.Services.Common;
-using TokenBasedAuthApplication.Core.DataAccess.Common;
-using TokenBasedAuthApplication.Core.Entities;
-using TokenBasedAuthApplication.Core.Services.Common;
-using TokenBasedAuthApplication.DataAccess.Contexts.EntityFramework;
-using TokenBasedAuthApplication.DataAccess.Repositories.Common;
+﻿
+
+using Microsoft.IdentityModel.Tokens;
 
 namespace TokenBasedAuthApplication.API.Extensions;
 
@@ -19,6 +15,8 @@ public static class ServiceRegistrationExtension
         GetProjectServices(services);
 
         GetProjectRepositories(services);
+        
+        GetAuthenticationConfiguration(services, configuration);
 
         return services;
     }
@@ -63,5 +61,30 @@ public static class ServiceRegistrationExtension
     {
         services.Configure<CustomTokenOptions>(configuration.GetSection("TokenOptions"));
         services.Configure<List<Client>>(configuration.GetSection("Clients"));
+    }
+
+    private static void GetAuthenticationConfiguration(IServiceCollection services, IConfiguration configuration)
+    {
+        var tokenOptions = configuration.GetSection("TokenOptions").Get<CustomTokenOptions>();
+        
+        services.AddAuthentication(configureOptions: (AuthenticationOptions options) =>
+        {
+            options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+
+        }).AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, (JwtBearerOptions options) =>
+        {
+            options.TokenValidationParameters = new TokenValidationParameters
+            {
+                ValidIssuer = tokenOptions.Issuer,
+                ValidAudience = tokenOptions.Audience[0],
+                IssuerSigningKey = SignService.GetSymmetricSecurityKey(tokenOptions.SecurityKey),
+                ValidateIssuerSigningKey = true,
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidateLifetime = true,
+                ClockSkew = TimeSpan.Zero
+            };
+        });
     }
 }
