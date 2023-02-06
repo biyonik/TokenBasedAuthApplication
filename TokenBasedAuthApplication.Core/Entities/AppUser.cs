@@ -4,5 +4,5 @@ namespace TokenBasedAuthApplication.Core.Entities;
 
 public sealed class AppUser : IdentityUser<Guid>
 {
-    public string City { get; set; }
+    public string? City { get; set; }
 }

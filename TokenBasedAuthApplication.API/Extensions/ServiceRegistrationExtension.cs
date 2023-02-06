@@ -1,6 +1,4 @@
-﻿
-
-using Microsoft.IdentityModel.Tokens;
+﻿using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using TokenBasedAuthApplication.Core.UnitOfWork;
@@ -19,7 +17,7 @@ public static class ServiceRegistrationExtension
         GetProjectServices(services);
 
         GetProjectRepositories(services);
-        
+
         GetAuthenticationConfiguration(services, configuration);
 
         return services;
@@ -70,10 +68,7 @@ public static class ServiceRegistrationExtension
         services.AddCors(setupAction =>
         {
             setupAction.AddPolicy("All",
-                policyBuilder =>
-                {
-                    policyBuilder.AllowAnyHeader().AllowCredentials().AllowAnyMethod().AllowAnyOrigin();
-                });
+                policyBuilder => policyBuilder.AllowAnyHeader().AllowCredentials().AllowAnyMethod().AllowAnyOrigin());
         });
         services.AddDbContext<AppDbContext>();
         services.AddIdentity<AppUser, IdentityRole<Guid>>((IdentityOptions identityOptions) =>
@@ -93,12 +88,11 @@ public static class ServiceRegistrationExtension
     private static void GetAuthenticationConfiguration(IServiceCollection services, IConfiguration configuration)
     {
         var tokenOptions = configuration.GetSection("TokenOptions").Get<CustomTokenOptions>();
-        
+
         services.AddAuthentication(configureOptions: (AuthenticationOptions options) =>
         {
             options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
             options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-
         }).AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, (JwtBearerOptions options) =>
         {
             options.TokenValidationParameters = new TokenValidationParameters
