@@ -25,5 +25,6 @@ public class AppDbContext: IdentityDbContext<AppUser, IdentityRole<Guid>, Guid>
     protected override void OnModelCreating(ModelBuilder builder)
     {
         builder.ApplyConfigurationsFromAssembly(typeof(AssemblyReference).Assembly);
+        base.OnModelCreating(builder);
     }
 }

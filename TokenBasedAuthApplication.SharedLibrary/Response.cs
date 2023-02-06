@@ -5,9 +5,9 @@ namespace TokenBasedAuthApplication.SharedLibrary;
 
 public record Response<T>
 {
-    private T? Data { get; init; }
-    private int StatusCode { get; init; }
-    private ErrorDto? Error { get; init; }
+    public T? Data { get; init; }
+    public int StatusCode { get; init; }
+    public ErrorDto? Error { get; init; }
     
     [JsonIgnore]
     public bool IsSuccessful { get; private init; }
