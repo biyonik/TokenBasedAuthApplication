@@ -1,6 +1,10 @@
 ﻿
 
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.SwaggerGen;
+using TokenBasedAuthApplication.Core.UnitOfWork;
+using TokenBasedAuthApplication.DataAccess;
 
 namespace TokenBasedAuthApplication.API.Extensions;
 
@@ -32,6 +36,7 @@ public static class ServiceRegistrationExtension
         services.AddScoped<IUserService, UserService>();
         services.AddScoped<ITokenService, TokenService>();
         services.AddScoped(typeof(IGenericService<,>), typeof(GenericService<,>));
+        services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork));
     }
 
     private static void MainServices(IServiceCollection services)
@@ -39,7 +44,29 @@ public static class ServiceRegistrationExtension
         services.AddControllers();
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         services.AddEndpointsApiExplorer();
-        services.AddSwaggerGen();
+        services.AddSwaggerGen((SwaggerGenOptions setup) =>
+        {
+            var jwtSecurityScheme = new OpenApiSecurityScheme
+            {
+                BearerFormat = "JWT",
+                Name = "JWT Authentication",
+                In = ParameterLocation.Header,
+                Type = SecuritySchemeType.Http,
+                Scheme = JwtBearerDefaults.AuthenticationScheme,
+                Description = "JWT Bearer Token",
+                Reference = new OpenApiReference
+                {
+                    Id = JwtBearerDefaults.AuthenticationScheme,
+                    Type = ReferenceType.SecurityScheme
+                }
+            };
+
+            setup.AddSecurityDefinition(jwtSecurityScheme.Reference.Id, jwtSecurityScheme);
+            setup.AddSecurityRequirement(new OpenApiSecurityRequirement
+            {
+                { jwtSecurityScheme, Array.Empty<string>() }
+            });
+        });
         services.AddCors(setupAction =>
         {
             setupAction.AddPolicy("All",
