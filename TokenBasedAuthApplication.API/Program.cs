@@ -1,16 +1,11 @@
+using TokenBasedAuthApplication.API.Extensions;
 using TokenBasedAuthApplication.Core.Configuration;
 using TokenBasedAuthApplication.SharedLibrary.Authentication;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.Configure<CustomTokenOptions>(builder.Configuration.GetSection("TokenOptions"));
-builder.Services.Configure<List<Client>>(builder.Configuration.GetSection("Clients"));
-
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddManuelService(builder.Configuration);
 
 var app = builder.Build();
 
