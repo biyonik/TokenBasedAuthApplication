@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using TokenBasedAuthApplication.Core.DTOs;
 
 namespace TokenBasedAuthApplication.API.Controllers;
 
+[Authorize]
 public class ProductsController: BaseApiController
 {
     private readonly IGenericService<Product, ProductDto> _productService;
@@ -41,9 +43,9 @@ public class ProductsController: BaseApiController
     }
 
     [HttpDelete]
-    public async Task<IActionResult> Delete(ProductDto productDto, Guid id)
+    public async Task<IActionResult> Delete(Guid id)
     {
-        var response = await _productService.DeleteAsync(productDto, id,default);
+        var response = await _productService.DeleteAsync(id,default);
         return await HandleResponse(response);
     }
 }

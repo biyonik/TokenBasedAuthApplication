@@ -70,13 +70,12 @@ public class GenericService<TEntity, TDto>: IGenericService<TEntity, TDto> where
             : Response<TDto?>.Success(dto, 204);
     }
 
-    public async Task<Response<NoDataDto>> DeleteAsync(TDto dto, Guid Id, CancellationToken cancellationToken)
+    public async Task<Response<NoDataDto>> DeleteAsync(Guid Id, CancellationToken cancellationToken)
     {
         var isExist = await _genericRepository.GetByIdAsync(Id, cancellationToken);
         if (isExist == null) return Response<NoDataDto>.Fail("Entity not found!", 404, true);
         
-        var entity = ObjectMapper.Mapper.Map<TEntity>(dto);
-        await _genericRepository.DeleteAsync(entity, cancellationToken);
+        await _genericRepository.DeleteAsync(isExist, cancellationToken);
         var result = await _unitOfWork.CommitAsync();
         return !result 
             ? Response<NoDataDto>.Fail("Delete operation failed!", 400, true) 

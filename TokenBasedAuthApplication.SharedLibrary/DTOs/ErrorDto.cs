@@ -12,7 +12,8 @@ public sealed record ErrorDto
 
     public ErrorDto(string error, bool isShow)
     {
-        Errors?.Add(error);
+        Errors ??= new List<string>();
+        Errors.Add(error);
         IsShow = isShow;
     }
 
