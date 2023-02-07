@@ -3,6 +3,7 @@ using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using TokenBasedAuthApplication.Core.UnitOfWork;
 using TokenBasedAuthApplication.DataAccess;
+using TokenBasedAuthApplication.SharedLibrary.Extensions;
 
 namespace TokenBasedAuthApplication.API.Extensions;
 
@@ -18,7 +19,9 @@ public static class ServiceRegistrationExtension
 
         GetProjectRepositories(services);
 
-        GetAuthenticationConfiguration(services, configuration);
+        var tokenOptions = configuration.GetSection("TokenOptions").Get<CustomTokenOptions>();
+        var symmetricSecurityKey = SignService.GetSymmetricSecurityKey(tokenOptions.SecurityKey);
+        CustomJwtServiceExtension.GetAuthenticationConfiguration(services, configuration, tokenOptions, symmetricSecurityKey);
 
         return services;
     }
@@ -84,28 +87,5 @@ public static class ServiceRegistrationExtension
         services.Configure<CustomTokenOptions>(configuration.GetSection("TokenOptions"));
         services.Configure<List<Client>>(configuration.GetSection("Clients"));
     }
-
-    private static void GetAuthenticationConfiguration(IServiceCollection services, IConfiguration configuration)
-    {
-        var tokenOptions = configuration.GetSection("TokenOptions").Get<CustomTokenOptions>();
-
-        services.AddAuthentication(configureOptions: (AuthenticationOptions options) =>
-        {
-            options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-            options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-        }).AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, (JwtBearerOptions options) =>
-        {
-            options.TokenValidationParameters = new TokenValidationParameters
-            {
-                ValidIssuer = tokenOptions.Issuer,
-                ValidAudience = tokenOptions.Audience[0],
-                IssuerSigningKey = SignService.GetSymmetricSecurityKey(tokenOptions.SecurityKey),
-                ValidateIssuerSigningKey = true,
-                ValidateIssuer = true,
-                ValidateAudience = true,
-                ValidateLifetime = true,
-                ClockSkew = TimeSpan.Zero
-            };
-        });
-    }
+    
 }
