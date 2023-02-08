@@ -5,10 +5,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MiniAPI.FirstApp.Controllers;
 
-[ApiController]
+[ApiController()]
 [Route("api/v1/[controller]")]
 [Produces("application/json")]
-[Authorize]
+[Authorize(Roles = "Admin")]
 public class StockController : ControllerBase
 {
     [HttpGet]

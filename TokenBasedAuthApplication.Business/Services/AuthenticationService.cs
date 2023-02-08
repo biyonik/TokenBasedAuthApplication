@@ -41,7 +41,7 @@ public class AuthenticationService : IAuthenticationService
         var checkPasswordResult = await _userManager.CheckPasswordAsync(user, loginDto.Password);
         if (!checkPasswordResult) return Response<TokenDto>.Fail("Email or password is wrong!", 404, true);
 
-        var token = _tokenService.CreateToken(user);
+        var token = await _tokenService.CreateToken(user);
         var userRefreshToken =
             await (await _userRefreshTokenRepository.GetAsync(x => x.UserId == user.Id, default))
                 .SingleOrDefaultAsync();
@@ -78,7 +78,7 @@ public class AuthenticationService : IAuthenticationService
         var user = await _userManager.FindByIdAsync(isExistRefreshToken.UserId.ToString());
         if (user == null) return await Task.Run(() => Response<TokenDto>.Fail("User Id not found!", 404, true));
 
-        TokenDto token = _tokenService.CreateToken(user);
+        TokenDto token = await _tokenService.CreateToken(user);
         isExistRefreshToken.Code = token.RefreshToken;
         isExistRefreshToken.Expiration = token.RefreshTokenExpiration;
         await _userRefreshTokenRepository.UpdateAsync(isExistRefreshToken, default);

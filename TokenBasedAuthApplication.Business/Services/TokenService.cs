@@ -31,8 +31,9 @@ public class TokenService : ITokenService
         randomNumberGenerator.GetBytes(numberByteArray);
         return Convert.ToBase64String(numberByteArray);
     }
-    private IEnumerable<Claim> GetClaims(AppUser user, List<string> audiences)
+    private async Task<IEnumerable<Claim>> GetClaims(AppUser user, List<string> audiences)
     {
+        var userRoles = await _userManager.GetRolesAsync(user);
         var userClaimList = new List<Claim>
         {
             new(ClaimTypes.NameIdentifier, user.Id.ToString()),
@@ -41,6 +42,7 @@ public class TokenService : ITokenService
             new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
         };
         userClaimList.AddRange(audiences.Select(x => new Claim(JwtRegisteredClaimNames.Aud, x)));
+        userClaimList.AddRange(userRoles.Select(x =>  new Claim(ClaimTypes.Role, x)));
         return userClaimList;
     }
     private IEnumerable<Claim> GetClaimsForClient(Client client)
@@ -53,7 +55,7 @@ public class TokenService : ITokenService
         claims.AddRange(client.Audiences.Select(x => new Claim(JwtRegisteredClaimNames.Aud, x)));
         return claims;
     }
-    private JwtSecurityToken GetJwtSecurityToken(AppUser user, DateTime accessTokenExpiration)
+    private async Task<JwtSecurityToken> GetJwtSecurityToken(AppUser user, DateTime accessTokenExpiration)
     {
         SecurityKey securityKey = SignService.GetSymmetricSecurityKey(_customTokenOptions.SecurityKey);
         SigningCredentials signingCredentials =
@@ -62,15 +64,15 @@ public class TokenService : ITokenService
             issuer: _customTokenOptions.Issuer,
             expires: accessTokenExpiration,
             notBefore: DateTime.Now,
-            claims: GetClaims(user, _customTokenOptions.Audience),
+            claims: await GetClaims(user, _customTokenOptions.Audience),
             signingCredentials: signingCredentials
         );
         return jwtSecurityToken;
     }
-    public TokenDto CreateToken(AppUser user)
+    public async Task<TokenDto> CreateToken(AppUser user)
     {
         DateTime accessTokenExpiration = DateTime.Now.AddMinutes(_customTokenOptions.AccessTokenExpiration);
-        var jwtSecurityToken = GetJwtSecurityToken(user, accessTokenExpiration);
+        var jwtSecurityToken = await GetJwtSecurityToken(user, accessTokenExpiration);
 
         JwtSecurityTokenHandler jwtSecurityTokenHandler = new JwtSecurityTokenHandler();
         string token = jwtSecurityTokenHandler.WriteToken(jwtSecurityToken);

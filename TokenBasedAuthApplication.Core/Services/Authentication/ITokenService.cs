@@ -6,6 +6,6 @@ namespace TokenBasedAuthApplication.Core.Services.Authentication;
 
 public interface ITokenService
 {
-    TokenDto CreateToken(AppUser user);
+    Task<TokenDto> CreateToken(AppUser user);
     ClientTokenDto CreateTokenForClient(Client client);
 }

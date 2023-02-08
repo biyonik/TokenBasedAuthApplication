@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Identity;
 using TokenBasedAuthApplication.Business.Mappings;
 using TokenBasedAuthApplication.Core.DTOs;
 using TokenBasedAuthApplication.Core.Entities;
@@ -11,10 +12,12 @@ namespace TokenBasedAuthApplication.Business.Services;
 public class UserService: IUserService
 {
     private readonly UserManager<AppUser> _userManager;
+    private readonly RoleManager<IdentityRole<Guid>> _roleManager;
 
-    public UserService(UserManager<AppUser> userManager)
+    public UserService(UserManager<AppUser> userManager, RoleManager<IdentityRole<Guid>> roleManager)
     {
         _userManager = userManager;
+        _roleManager = roleManager;
     }
 
     public async Task<Response<AppUserDto>> CreateUserAsync(CreateUserDto createUserDto)
@@ -53,5 +56,21 @@ public class UserService: IUserService
         
         AppUserDto appUserDto = ObjectMapper.Mapper.Map<AppUserDto>(user);
         return Response<AppUserDto>.Success(appUserDto, 200);
+    }
+
+    public async Task<Response<NoContent>> CreateUserRoles(string email)
+    {
+        if (!_roleManager.Roles.Any())
+        {
+            await _roleManager.CreateAsync(new("Admin"));
+            await _roleManager.CreateAsync(new("Manager"));
+            await _roleManager.CreateAsync(new("Editor"));
+        }
+        var user = await _userManager.FindByEmailAsync(email);
+        await _userManager.AddToRoleAsync(user, "Admin");
+        await _userManager.AddToRoleAsync(user, "Manager");
+        await _userManager.AddToRoleAsync(user, "Editor");
+        return Response<NoContent>.Success(201);
+        
     }
 }

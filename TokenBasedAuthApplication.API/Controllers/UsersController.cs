@@ -21,6 +21,13 @@ public class UsersController: BaseApiController
         return await HandleResponse(response);
     }
 
+    [HttpPost("create-user-roles/{email}")]
+    public async Task<IActionResult> CreateUserRoles(string email)
+    {
+        var response = await _userService.CreateUserRoles(email);
+        return await HandleResponse(response);
+    }
+
     [HttpGet]
     [Authorize]
     public async Task<IActionResult> GetUser()
