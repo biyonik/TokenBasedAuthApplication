@@ -84,6 +84,7 @@ public static class ServiceRegistrationExtension
             .AddDefaultTokenProviders();
 
         services.AddValidatorsFromAssembly(typeof(TokenBasedAuthApplication.Business.AssemblyReference).Assembly);
+        services.UseCustomValidationResponse();
     }
 
     private static void GetServiceConfigures(IServiceCollection services, IConfiguration configuration)

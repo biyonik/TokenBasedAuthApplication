@@ -1,6 +1,7 @@
 using TokenBasedAuthApplication.API.Extensions;
 using TokenBasedAuthApplication.Core.Configuration;
 using TokenBasedAuthApplication.SharedLibrary.Authentication;
+using TokenBasedAuthApplication.SharedLibrary.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +17,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCustomException();
 // app.UseCors("All");
 app.UseHttpsRedirection();
 

@@ -2,7 +2,7 @@
 
 public sealed record ErrorDto
 {
-    public List<string> Errors { get; private set; }
+    public List<string> Errors { get; internal set; }
     public bool IsShow { get; private set; }
 
     public ErrorDto()

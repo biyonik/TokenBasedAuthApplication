@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TokenBasedAuthApplication.Core.DTOs;
+using TokenBasedAuthApplication.SharedLibrary.Exceptions;
 
 namespace TokenBasedAuthApplication.API.Controllers;
 
