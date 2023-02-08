@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
@@ -23,7 +24,7 @@ public static class ServiceRegistrationExtension
 
         var tokenOptions = configuration.GetSection("TokenOptions").Get<CustomTokenOptions>();
         var symmetricSecurityKey = SignService.GetSymmetricSecurityKey(tokenOptions.SecurityKey);
-        CustomJwtServiceExtension.GetAuthenticationConfiguration(services, configuration, tokenOptions, symmetricSecurityKey);
+        services.GetAuthenticationConfiguration(configuration, tokenOptions, symmetricSecurityKey);
 
         return services;
     }
@@ -85,6 +86,14 @@ public static class ServiceRegistrationExtension
 
         services.AddValidatorsFromAssembly(typeof(TokenBasedAuthApplication.Business.AssemblyReference).Assembly);
         services.UseCustomValidationResponse();
+
+        services.AddAuthorization((AuthorizationOptions options) =>
+        {
+            options.AddPolicy("BalikesirPolicy", policyBuilder =>
+            {
+                policyBuilder.RequireClaim("City", "Balıkesir");
+            });
+        });
     }
 
     private static void GetServiceConfigures(IServiceCollection services, IConfiguration configuration)

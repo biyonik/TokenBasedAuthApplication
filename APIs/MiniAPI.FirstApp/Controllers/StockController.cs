@@ -8,7 +8,7 @@ namespace MiniAPI.FirstApp.Controllers;
 [ApiController()]
 [Route("api/v1/[controller]")]
 [Produces("application/json")]
-[Authorize(Roles = "Admin")]
+[Authorize(Roles = "Admin", Policy = "BalikesirPolicy")]
 public class StockController : ControllerBase
 {
     [HttpGet]
