@@ -1,6 +1,5 @@
 ﻿using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MiniAPI.FirstApp.Controllers;
@@ -9,6 +8,7 @@ namespace MiniAPI.FirstApp.Controllers;
 [Route("api/v1/[controller]")]
 [Produces("application/json")]
 [Authorize(Roles = "Admin", Policy = "BalikesirPolicy")]
+[Authorize(Roles = "Admin", Policy = "AgePolicy")]
 public class StockController : ControllerBase
 {
     [HttpGet]
