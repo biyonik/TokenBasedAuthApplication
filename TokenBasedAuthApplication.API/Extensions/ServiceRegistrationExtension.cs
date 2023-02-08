@@ -1,4 +1,6 @@
-﻿using Microsoft.IdentityModel.Tokens;
+﻿using FluentValidation;
+using FluentValidation.AspNetCore;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using TokenBasedAuthApplication.Core.UnitOfWork;
@@ -80,6 +82,8 @@ public static class ServiceRegistrationExtension
                 identityOptions.Password.RequireNonAlphanumeric = false;
             }).AddEntityFrameworkStores<AppDbContext>()
             .AddDefaultTokenProviders();
+
+        services.AddValidatorsFromAssembly(typeof(TokenBasedAuthApplication.Business.AssemblyReference).Assembly);
     }
 
     private static void GetServiceConfigures(IServiceCollection services, IConfiguration configuration)
